@@ -1,40 +1,47 @@
-// C++ program for the above approach
-#include <bits/stdc++.h>
-using namespace std;
+// Java program for the above approach
+import java.util.*;
 
-int maxindex(int* dist, int n)
+class GFG{
+
+static int maxindex(int[] dist, int n)
 {
 	int mi = 0;
-	for (int i = 0; i < n; i++) {
+	for(int i = 0; i < n; i++)
+	{
 		if (dist[i] > dist[mi])
 			mi = i;
 	}
 	return mi;
 }
 
-void selectKcities(int n, int weights[4][4], int k)
+static void selectKcities(int n, int weights[][],
+						int k)
 {
-	int* dist = new int[n];
-	vector<int> centers;
-	for (int i = 0; i < n; i++) {
-		dist[i] = INT_MAX;
+	int[] dist = new int[n];
+	ArrayList<Integer> centers = new ArrayList<>();
+	for(int i = 0; i < n; i++)
+	{
+		dist[i] = Integer.MAX_VALUE;
 	}
 
-	// index of city having the
+	// Index of city having the
 	// maximum distance to it's
 	// closest center
 	int max = 0;
-	for (int i = 0; i < k; i++) {
-		centers.push_back(max);
-		for (int j = 0; j < n; j++) {
-
-			// updating the distance
+	for(int i = 0; i < k; i++)
+	{
+		centers.add(max);
+		for(int j = 0; j < n; j++)
+		{
+			
+			// Updating the distance
 			// of the cities to their
 			// closest centers
-			dist[j] = min(dist[j], weights[max][j]);
+			dist[j] = Math.min(dist[j],
+							weights[max][j]);
 		}
 
-		// updating the index of the
+		// Updating the index of the
 		// city with the maximum
 		// distance to it's closest center
 		max = maxindex(dist, n);
@@ -43,28 +50,29 @@ void selectKcities(int n, int weights[4][4], int k)
 	// Printing the maximum distance
 	// of a city to a center
 	// that is our answer
-	cout << endl << dist[max] << endl;
+	System.out.println(dist[max]);
 
 	// Printing the cities that
 	// were chosen to be made
 	// centers
-	for (int i = 0; i < centers.size(); i++) {
-		cout << centers[i] << " ";
+	for(int i = 0; i < centers.size(); i++)
+	{
+		System.out.print(centers.get(i) + " ");
 	}
-	cout << endl;
+	System.out.print("\n");
 }
 
 // Driver Code
-int main()
+public static void main(String[] args)
 {
 	int n = 4;
-	int weights[4][4] = { { 0, 4, 8, 5 },
-						{ 4, 0, 10, 7 },
-						{ 8, 10, 0, 9 },
-						{ 5, 7, 9, 0 } };
+	int[][] weights = new int[][]{ { 0, 4, 8, 5 },
+								{ 4, 0, 10, 7 },
+								{ 8, 10, 0, 9 },
+								{ 5, 7, 9, 0 } };
 	int k = 2;
 
 	// Function Call
 	selectKcities(n, weights, k);
 }
-// Contributed by Balu Nagar
+}
